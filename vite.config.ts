@@ -4,12 +4,12 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
-  const TrackdexV1 = process.env.GITHUB_REPOSITORY
+  const repoName = process.env.GITHUB_REPOSITORY
     ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}/`
     : './';
 
   return {
-    base: TrackdexV1,
+    base: repoName,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
