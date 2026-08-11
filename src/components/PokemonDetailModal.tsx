@@ -39,12 +39,20 @@ export const PokemonDetailModal: React.FC<PokemonDetailModalProps> = ({
 
   // Cry Audio Volume state (persisted in localStorage, default 0.3 = 30%)
   const [volume, setVolume] = useState<number>(() => {
-    const savedVol = localStorage.getItem('pokemon_cry_volume');
-    return savedVol !== null ? parseFloat(savedVol) : 0.3;
+    try {
+      const savedVol = localStorage.getItem('pokemon_cry_volume');
+      return savedVol !== null ? parseFloat(savedVol) : 0.3;
+    } catch {
+      return 0.3;
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('pokemon_cry_volume', volume.toString());
+    try {
+      localStorage.setItem('pokemon_cry_volume', volume.toString());
+    } catch {
+      // Ignore quota or security errors
+    }
   }, [volume]);
 
   if (!pokemon) return null;
